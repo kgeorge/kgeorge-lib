@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C++ Express 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kg_maya_stl_wrapper", "kg_maya_stl_wrapper.vcproj", "{A059A288-1AB0-4258-84A7-7E63AFCA3376}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A059A288-1AB0-4258-84A7-7E63AFCA3376}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A059A288-1AB0-4258-84A7-7E63AFCA3376}.Debug|Win32.Build.0 = Debug|Win32
+		{A059A288-1AB0-4258-84A7-7E63AFCA3376}.Release|Win32.ActiveCfg = Release|Win32
+		{A059A288-1AB0-4258-84A7-7E63AFCA3376}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
