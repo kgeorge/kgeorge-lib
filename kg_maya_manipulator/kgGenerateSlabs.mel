@@ -1,0 +1,100 @@
+
+//Mel script to illustrate manipulators
+//author : kgeorge@serv.net @ 2002
+//This script is entirely mine.
+//reference: "Complete Maya Programming book" provided some
+//insights to how to make manipulators
+
+
+
+//Generate a grid of rectangular slabs
+//Associate a kgLocator with each of the slab.
+//The slab height is controlled by a manipulator associated
+//with the corresponding kgLocator
+
+//To use:
+//1)Run "kgGenerateSlabs();" in script window
+//or commandLine. This should create a grid of slabs & kgLocators
+//2)Select any kgLocator
+//3)Click Modify/Transformation Tools/Show Manipulator Tools.
+//This makes the corresponding manipulator visible.
+//try pulling the manipulator
+
+
+global proc kgGenerateSlabs()
+{
+
+float $base = 1.0;// slab base width
+//slab height is going to be controlled by
+//the manipulator, but lets put an initial slab height
+float $hInit = 1.0; //initial slab height
+
+//grid is a $nSubd x $nSubd square grid
+int $nSubd = 4;
+//barf if $nSubd is not even
+if( ( $nSubd % 2 ) != 0)
+{
+	warning(" the sbdivision number: " + $nSubd + " should be even");
+	return;
+}
+//Grid Squares should be big enough to accomodate
+// a slab with ample space in between.
+//Base width of each grid square is $slotSizeRatio times
+//bigger than base width of slab
+float $slotSizeRatio = 3.0;
+float $slotSize = $slotSizeRatio * $base;
+
+//array for holding the transform nodes of slabs
+string $slabs[];
+//array for holding the shpe node of slabs
+string $slabShapes[];
+//array for holding the locator names
+string $slabLocators[];
+//temp string array
+string $slabTemp[2];
+
+//lower left corner of the grid
+float $x0 = -$slotSize * $nSubd / 2 + 1.5 * $base ;
+float $y0 = -$slotSize * $nSubd / 2 + 1.5 * $base;
+
+for($i=0, $x= $x0; $i < $nSubd; ++$i,$x += $slotSize )
+{
+  for ($j=0, $y=$y0; $j < $nSubd; ++$j, $y += $slotSize)
+  {
+	//compute the arrayindex in column major form
+	int $arrayIdx = $i* $nSubd + $j;
+	//create slab
+	$slabTemp = `polyCube -sx 1 -sy 1 -sz 1 -h $hInit -w $base -d $base -cuv 1`;	
+	//retreive slab transform node and slab shape node
+	$slabs[$arrayIdx]  = $slabTemp[0];
+	$slabShapes[$arrayIdx] = $slabTemp[1];
+	string $slabName = $slabs[$arrayIdx];
+	string $slabShapeName = $slabShapes[$arrayIdx];
+	//apply initial translation
+	setAttr ( $slabTemp[0] + ".translateX") $x;
+	setAttr ( $slabTemp[0] + ".translateY") 0;
+	setAttr ( $slabTemp[0] + ".translateZ") $y;
+
+	//create an associated kgLocator
+	$slabLocators[$arrayIdx]  = `createNode kgLocator`;	
+	string $slabLocatorName = $slabLocators[$arrayIdx];
+	//translate the kgLocator to be directly above the slab
+	move $x ($hInit/2.0) $y $slabLocatorName;	
+	//arrange the DG	
+	connectAttr ($slabLocatorName + ".height") ($slabShapeName + ".height");
+	//Modify/Transformation Tools/Show Manipulator Tool
+	//should make the corresponding manipulator visible
+  }	
+}
+
+}
+
+
+
+//select -all;
+//string $sel[] = `selectedNodes`;
+//if ( size($sel) > 0)
+//{
+//	delete;
+//}
+//kgGenerateSlabs();
