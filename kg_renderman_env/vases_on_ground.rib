@@ -1,0 +1,169 @@
+##RenderMan RIB
+version 3.03
+Format 320 240 1
+Orientation "rh"
+Sides 2
+PixelSamples 3 3
+ReadArchive "vases_on_ground_geom.rib"
+FrameBegin 82
+Display "persp_balls_72.tif" "tiff" "rgba"
+Format 320 240 1
+Projection "perspective" "fov" [42.1847]
+Clipping 0.1 1000
+Transform [0.238533 0.0450973 -0.970087 0 0 0.998921 0.0464378 0 -0.971134 0.011077 -0.238276 0 -1.49273 -13.2958 14.6478 1]
+Option "searchpath" "texture" [".:./textures:&"]
+Option "searchpath" "shader" [".:./shaders:&"]
+WorldBegin 
+AttributeBegin
+Attribute "light" "shadows" "off"
+LightSource "distantlight" 1 "intensity" [1]"lightcolor" [0.931011 1 0.836]"from" [0 0 0]"to" [-0.636016 0.768341 -0.0716581]
+#LightSource "distantlight" 2 "intensity" [1]"lightcolor" [0.737 1 0.994039]"from" [0 9.15402 0]"to" [0.412512 8.27419 -0.236073]
+LightSource "distantlight" 3 "intensity" [1]"lightcolor" [0.624 0.981827 1]"from" [0 0 0]"to" [0.558208 0.23284 -0.79636]
+#LightSource "distantlight" 4 "intensity" [1]"lightcolor" [0.958418 1 0.695]"from" [0 29.4562 0]"to" [-0.486155 29.0497 -0.773539]
+Attribute "light" "shadows" "on"
+AttributeEnd
+LightSource "pointlight" 5 "intensity" [500] "lightcolor" [1 0.989824 0.682]"from" [-6.16626 22.4821 0]
+LightSource "pointlight" 6 "intensity" [500] "lightcolor" [1 1 1]"from" [0 24.1783 0]
+
+Surface "plastic"
+AttributeBegin 
+Attribute "identifier" "name" ["nurbsPlane1"]
+ConcatTransform [1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1]
+AttributeBegin 
+Declare "casts_shadows" "string"
+Attribute "render" "casts_shadows" "none"
+Attribute "identifier" "name" ["nurbsPlaneShape1"]
+Surface "matte"
+Color [0.5 0.5 0.5]
+ObjectInstance 1
+AttributeEnd 
+AttributeEnd 
+AttributeBegin 
+Attribute "identifier" "name" ["nurbsToPoly1"]
+ConcatTransform [1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1]
+AttributeBegin 
+Attribute "identifier" "name" ["nurbsToPolyShape1"]
+Declare "mapname" "string"
+Surface "kgThinMatte" "mapname" "envTex.tif"
+#Surface "matte"
+Color [0.5 0.5 0.5]
+ObjectInstance 3
+Declare "casts_shadows" "string"
+Attribute "render" "casts_shadows" "none"
+AttributeEnd 
+AttributeEnd 
+AttributeBegin 
+Attribute "identifier" "name" ["balls"]
+ConcatTransform [1 0 0 0 0 1 0 0 0 0 1 0 0 -3.17186 0 1]
+AttributeBegin 
+Attribute "identifier" "name" ["ball0"]
+ConcatTransform [0.188385 -0.980301 -0.0593302 0 -0.461674 -0.141717 0.875656 0 -0.866815 -0.137569 -0.479277 0 -0.846547 12.576 -16.9911 1]
+AttributeBegin 
+Attribute "identifier" "name" ["ball0Shape"]
+Declare "envname" "string"
+Surface "kgEnv" "envname" "env.env"
+#Surface "matte"
+Color [0.5 0.5 0.5]
+ObjectInstance 21
+AttributeEnd 
+AttributeEnd 
+AttributeBegin 
+Attribute "identifier" "name" ["ball1"]
+ConcatTransform [0.548225 -0.0752146 -0.832942 0 0.601314 0.727652 0.330066 0 0.581266 -0.68181 0.444145 0 -15.619 10.5509 3.28944 1]
+AttributeBegin 
+Attribute "identifier" "name" ["ball0Shape1"]
+Declare "envname" "string"
+Surface "kgEnv" "envname" "env.env"
+#Surface "matte"
+Color [0.5 0.5 0.5]
+ObjectInstance 5
+AttributeEnd 
+AttributeEnd 
+AttributeBegin 
+Attribute "identifier" "name" ["ball2"]
+ConcatTransform [0.213623 -0.297701 0.930451 0 0.0298214 0.95398 0.298383 0 -0.976461 -0.035994 0.21267 0 -13.1428 12.345 12.5726 1]
+AttributeBegin 
+Attribute "identifier" "name" ["ball0Shape2"]
+Attribute "render" "forceshade" [1]
+Declare "envname" "string"
+Surface "kgEnv" "envname" "env.env"
+#Surface "matte"
+Color [0.5 0.5 0.5]
+ObjectInstance 7
+AttributeEnd 
+AttributeEnd 
+AttributeBegin 
+Attribute "identifier" "name" ["ball3"]
+ConcatTransform [-0.29937 -0.913702 0.274818 0 0.0344449 -0.29819 -0.953885 0 0.953515 -0.276099 0.120742 0 -12.3279 10.1617 -8.57404 1]
+AttributeBegin 
+Attribute "identifier" "name" ["ball0Shape3"]
+Declare "envname" "string"
+Surface "kgEnv" "envname" "env.env"
+#Surface "matte"
+Color [0.5 0.5 0.5]
+ObjectInstance 9
+AttributeEnd 
+AttributeEnd 
+AttributeBegin 
+Attribute "identifier" "name" ["ball4"]
+ConcatTransform [0.779049 0.0232276 0.626533 0 0.338634 0.825423 -0.451668 0 -0.527646 0.564037 0.635179 0 -13.8711 7.37305 -1.86134 1]
+AttributeBegin 
+Attribute "identifier" "name" ["ball0Shape4"]
+Declare "envname" "string"
+Surface "kgEnv" "envname" "env.env"
+#Surface "matte"
+Color [0.5 0.5 0.5]
+ObjectInstance 11
+AttributeEnd 
+AttributeEnd 
+AttributeBegin 
+Attribute "identifier" "name" ["ball5"]
+ConcatTransform [-0.664558 -0.71949 0.201736 0 -0.741131 0.60021 -0.300787 0 0.0953292 -0.349403 -0.932111 0 -11.3967 14.827 -13.607 1]
+AttributeBegin 
+Attribute "identifier" "name" ["ball0Shape5"]
+Declare "envname" "string"
+Surface "kgEnv" "envname" "env.env"
+#Surface "matte"
+Color [0.5 0.5 0.5]
+ObjectInstance 13
+AttributeEnd 
+AttributeEnd 
+AttributeBegin 
+Attribute "identifier" "name" ["ball6"]
+ConcatTransform [0.747902 0.433713 0.502529 0 0.414066 0.286894 -0.863852 0 -0.518836 0.854158 0.0349829 0 12.7927 16.3737 -9.35071 1]
+AttributeBegin 
+Attribute "identifier" "name" ["ball0Shape6"]
+Declare "envname" "string"
+Surface "kgEnv" "envname" "env.env"
+#Surface "matte"
+Color [0.5 0.5 0.5]
+ObjectInstance 15
+AttributeEnd 
+AttributeEnd 
+AttributeBegin 
+Attribute "identifier" "name" ["ball7"]
+ConcatTransform [0.143191 -0.258922 -0.955225 0 0.318793 -0.901663 0.292191 0 -0.936946 -0.346358 -0.0465675 0 4.5922 18.2223 -14.2391 1]
+AttributeBegin 
+Attribute "identifier" "name" ["ball0Shape7"]
+Declare "envname" "string"
+Surface "kgEnv" "envname" "env.env"
+#Surface "matte"
+Color [0.5 0.5 0.5]
+ObjectInstance 17
+AttributeEnd 
+AttributeEnd 
+AttributeBegin 
+Attribute "identifier" "name" ["ball8"]
+ConcatTransform [0.858739 0.262571 0.440027 0 -0.283049 0.958901 -0.0198023 0 -0.427142 -0.107544 0.897766 0 -1.99008 10.0762 -3.34778 1]
+AttributeBegin 
+Attribute "identifier" "name" ["ball0Shape8"]
+Declare "envname" "string"
+Surface "kgEnv" "envname" "env.env"
+#Surface "matte"
+Color [0.5 0.5 0.5]
+ObjectInstance 19
+AttributeEnd 
+AttributeEnd 
+AttributeEnd 
+WorldEnd 
+FrameEnd 
