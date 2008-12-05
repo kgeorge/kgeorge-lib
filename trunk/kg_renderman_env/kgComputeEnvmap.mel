@@ -1,0 +1,172 @@
+
+
+//This mel script generates a cubin environment map,
+//as six separate images
+//sixz cameras are created and are rendrered.
+
+//this plugin is entirely mine.
+
+
+
+proc string[] kgMakeCameraR(vector $v){
+string $cR[] = `camera -ar 1.0  -p ($v.x) ($v.y) ($v.z) -rot 0 -90.0 0`;
+string $csR  = $cR[1];
+camera -e -rot 0 -90.0 0 $cR[1];
+camera -e -hfv 90.0 $cR[1];
+camera -e -vfv 90.0 $cR[1];
+float $fwup[] = `camera -q -wup $cR[0]`;
+//float $fvfv = `camera -q -vfv  $cR[0]`;
+//float $fhfv =  `camera -q -hfv  $cR[0]`;
+vector $v = << $fwup[0], $fwup[1], $fwup[2] >>;
+if($v != <<0, 1.0, 0 >> ) {
+	warning("bad camera up direction for camera R:" + $v);
+}
+return $cR;
+}
+
+
+proc string[] kgMakeCameraL(vector $v){
+string $cL[] = `camera -ar 1.0  -p ($v.x) ($v.y) ($v.z)`;
+string $csL  = $cL[1];
+camera -e -rot 0 90.0 0 $cL[1];
+camera -e -hfv 90.0 $cL[1];
+camera -e -vfv 90.0 $cL[1];
+float $fwup[] = `camera -q -wup $cL[0]`;
+//float $fvfv = `camera -q -vfv  $cL[0]`;
+//float $fhfv =  `camera -q -hfv  $cL[0]`;
+vector $v = << $fwup[0], $fwup[1], $fwup[2] >>;
+if($v != <<0, 1.0, 0 >> ) {
+	warning("bad camera up direction for camera L:" + $v);
+}
+return $cL;
+}
+
+
+proc string[] kgMakeCameraF(vector $v){
+string $cF[] = `camera -ar 1.0  -p ($v.x) ($v.y) ($v.z)`;
+string $csF  = $cF[1];
+camera -e -rot 0 180 0 $cF[1];
+camera -e -hfv 90.0 $cF[1];
+camera -e -vfv 90.0 $cF[1];
+float $fwup[] = `camera -q -wup $cF[0]`;
+//float $fvfv = `camera -q -vfv  $cF[0]`;
+//float $fhfv =  `camera -q -hfv  $cF[0]`;
+vector $v = << $fwup[0], $fwup[1], $fwup[2] >>;
+if($v != <<0, 1.0, 0 >> ) {
+	warning("bad camera up direction for camera F:" + $v);
+}
+return $cF;
+}
+
+proc string[] kgMakeCameraB(vector $v){
+string $cB[] = `camera -ar 1.0  -p ($v.x) ($v.y) ($v.z) -rot 0 0 0`;
+string $csB  = $cB[1];
+camera -e -rot 0 0 0 $cB[1];
+camera -e -hfv 90.0 $cB[1];
+camera -e -vfv 90.0 $cB[1];
+float $fwup[] = `camera -q -wup $cB[0]`;
+//float $fvfv = `camera -q -vfv  $cB[0]`;
+//float $fhfv =  `camera -q -hfv  $cB[0]`;
+vector $v = << $fwup[0], $fwup[1], $fwup[2] >>;
+if($v != <<0, 1.0, 0 >> ) {
+	warning("bad camera up direction for camera B:" + $v);
+}
+return $cB;
+}
+
+
+
+proc string[] kgMakeCameraT(vector $v){
+string $cT[] = `camera -ar 1.0  -p ($v.x) ($v.y) ($v.z)`;
+string $csT  = $cT[1];
+camera -e -rot 90 180 0 $cT[1];
+camera -e -hfv 90.0 $cT[1];
+camera -e -vfv 90.0 $cT[1];
+float $fwup[] = `camera -q -wup $cT[0]`;
+//float $fvfv = `camera -q -vfv  $cT[0]`;
+//float $fhfv =  `camera -q -hfv  $cT[0]`;
+vector $v = << $fwup[0], $fwup[1], $fwup[2] >>;
+if($v != <<0, 0, -1 >> ) {
+	warning("bad camera up direction for camera T: " + $v);
+}
+return $cT;
+}
+
+
+proc string[] kgMakeCameraBt(vector $v){
+string $cBt[] = `camera -ar 1.0  -p ($v.x) ($v.y) ($v.z)`;
+string $csBt  = $cBt[1];
+camera -e -rot -90 180 0 $cBt[1];
+camera -e -hfv 90.0 $cBt[1];
+camera -e -vfv 90.0 $cBt[1];
+float $fwup[] = `camera -q -wup $cBt[0]`;
+//float $fvfv = `camera -q -vfv  $cBt[0]`;
+//float $fhfv =  `camera -q -hfv  $cBt[0]`;
+vector $v = << $fwup[0], $fwup[1], $fwup[2] >>;
+if($v != <<0, 0, 1 >> ) {
+	warning("bad camera up direction for camera Bt:" + $v);
+}
+return $cBt;
+}
+
+
+global proc kgDeleteCameras(){
+string $c;
+string $cams[] = `ls -cameras`;
+for ( $c in $cams ) {
+	if ( $c == "perspShape" || $c == "frontShape" || $c == "topShape" || $c == "sideShape" ) 
+		continue;
+	string $pt[] = `listRelatives -parent $c`; 
+	if(size($pt) > 0 && `objectType -isType "transform" $pt[0]`){
+		print (`objectType $pt[0]`);
+	} else {
+		warning ( "cameraShape " + $c + " doent have a transform as a parent");
+	}
+	print ("\ndeleting camera " + $c);
+	delete  $pt[0];
+	
+}
+}
+
+
+
+
+global proc kgMakeCubicmap(vector $v){
+string $camR[] = kgMakeCameraR($v);
+rename $camR[0] camR;
+string $camL[] = kgMakeCameraL($v);
+rename $camL[0] camL;
+string $camF[] = kgMakeCameraF($v);
+rename $camF[0] camF;
+string $camB[] = kgMakeCameraB($v);
+rename $camB[0] camB;
+string $camT[] = kgMakeCameraT($v);
+rename $camT[0] camT;
+string $camBt[] = kgMakeCameraBt($v);
+rename $camBt[0] camBt;
+
+//string $rGlobals[] = `listAttr defaultRenderGlobals`;
+//$rGlobals = `sort $rGlobals`;
+//print $rGlobals;
+
+//make the image format tiff
+int $imf = `getAttr defaultRenderGlobals.imageFormat`;
+if($imf != 3) {
+	setAttr defaultRenderGlobals.imageFormat 3;
+}
+
+
+render -x 256 -y 256 camL;
+render -x 256 -y 256 camR;
+render -x 256 -y 256 camF;
+render -x 256 -y 256 camB;
+render -x 256 -y 256 camT;
+render -x 256 -y 256 camBt;
+}
+
+
+
+vector $kgV = <<0, 15, 0>>;
+kgDeleteCameras();
+
+kgMakeCubicmap($kgV);
