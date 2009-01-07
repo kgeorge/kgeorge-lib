@@ -1,0 +1,25 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C++ Express 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kg_static_polymorphism_multi_platform", "kg_static_polymorphism_multi_platform.vcproj", "{41267BCF-0B2E-4490-A4D8-8BBD09DC8D14}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		PC_Debug|Win32 = PC_Debug|Win32
+		PC_Release|Win32 = PC_Release|Win32
+		PS2_Debug|Win32 = PS2_Debug|Win32
+		PS2_Release|Win32 = PS2_Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{41267BCF-0B2E-4490-A4D8-8BBD09DC8D14}.PC_Debug|Win32.ActiveCfg = PC_Debug|Win32
+		{41267BCF-0B2E-4490-A4D8-8BBD09DC8D14}.PC_Debug|Win32.Build.0 = PC_Debug|Win32
+		{41267BCF-0B2E-4490-A4D8-8BBD09DC8D14}.PC_Release|Win32.ActiveCfg = PC_Release|Win32
+		{41267BCF-0B2E-4490-A4D8-8BBD09DC8D14}.PC_Release|Win32.Build.0 = PC_Release|Win32
+		{41267BCF-0B2E-4490-A4D8-8BBD09DC8D14}.PS2_Debug|Win32.ActiveCfg = PC_Debug|Win32
+		{41267BCF-0B2E-4490-A4D8-8BBD09DC8D14}.PS2_Debug|Win32.Build.0 = PC_Debug|Win32
+		{41267BCF-0B2E-4490-A4D8-8BBD09DC8D14}.PS2_Release|Win32.ActiveCfg = PS2_Release|Win32
+		{41267BCF-0B2E-4490-A4D8-8BBD09DC8D14}.PS2_Release|Win32.Build.0 = PS2_Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
