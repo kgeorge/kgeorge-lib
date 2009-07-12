@@ -878,7 +878,11 @@ namespace kgObserver
 	{
 		return new Subscription0< 1, R, H  > ( holder, TSubscriptionFun ); 
 	}
-    
+    template< typename R, typename H  >
+	Subscription0<1, R, const H > *SubscriptionMaker( const H  &holder, R (H::* TSubscriptionFun ) () const )
+	{
+		return new Subscription0< 1, R, const H  > ( holder, TSubscriptionFun ); 
+	}
 	//Make a Subscription1 class instance
 	//where the member function signature accepts one argument
 	//and the member function is a constant.
@@ -886,6 +890,12 @@ namespace kgObserver
 	Subscription1<1, R, H,A1  > *SubscriptionMaker(H  &holder, R (H::* TSubscriptionFun ) (A1 ) const )
 	{
 		return new Subscription1< 1, R, H, A1 > ( holder, TSubscriptionFun ); 
+    }
+
+	template< typename R, typename H, typename A1  >
+	Subscription1<1, R, const H,A1  > *SubscriptionMaker(const H  &holder, R (H::* TSubscriptionFun ) (A1 ) const )
+	{
+		return new Subscription1< 1, R, const H, A1 > ( holder, TSubscriptionFun ); 
     }
 	
 	//Make a Subscription2 class instance
@@ -896,7 +906,11 @@ namespace kgObserver
 	{		
 		return new Subscription2< 1, R, H, A1, A2 > ( holder, TSubscriptionFun ); 
 	}
-
+	template< typename R, typename H, typename A1 , typename A2 >
+	Subscription2<1, R, const H, A1, A2 > *SubscriptionMaker( const H  &holder, R (H::* TSubscriptionFun ) (A1, A2 ) const )
+	{		
+		return new Subscription2< 1, R, const H, A1, A2 > ( holder, TSubscriptionFun ); 
+	}
     //Make a Subscription3 class instance
 	//where the member function signature accepts three arguments
 	//and the member function is a constant.
@@ -905,7 +919,11 @@ namespace kgObserver
 	{		
 		return new Subscription3< 1, R, H, A1, A2, A3 > ( holder, TSubscriptionFun ); 
 	}
-
+	template< typename R, typename H, typename A1 , typename A2, typename  A3 >
+	Subscription3<1, R, const H, A1, A2, A3 > *SubscriptionMaker( const H  &holder, R (H::* TSubscriptionFun ) (A1, A2, A3 ) const )
+	{		
+		return new Subscription3< 1, R, const H, A1, A2, A3 > ( holder, TSubscriptionFun ); 
+	}
 	//============================================================
 	// SubscriptionMaker functions for making Subscription-s
 	// that accept global static functions
