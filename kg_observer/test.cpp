@@ -579,7 +579,8 @@ namespace test
 			//different kinds of subscribers
 			SubscriberExample_R_int_A1_int   subscription1(56), subscription2(76);			
 			I_SubscriberExample_R_int_A1_int &isubscription2( subscription2);
-			SubscriberExample_R_int_A1_int_Const subscription3(89), subscription4(46);
+			SubscriberExample_R_int_A1_int_Const subscription3(89), subscription4(46), subscription5(7);
+			const SubscriberExample_R_int_A1_int_Const &rsubscription5( subscription5 );
 			I_SubscriberExample_R_int_A1_int_Const &isubscription4( subscription4 );
 			click.Subscribe( *( SubscriptionMaker( subscription1,&SubscriberExample_R_int_A1_int::NotifyMe ) ) );			
 			click.Subscribe( *( SubscriptionMaker( isubscription2,&I_SubscriberExample_R_int_A1_int::NotifyMe ) ) );
@@ -587,6 +588,8 @@ namespace test
 			click.Subscribe( *( SubscriptionMaker( isubscription4,&I_SubscriberExample_R_int_A1_int_Const::NotifyMe ) ) );		
 			//example of member static function
 			click.Subscribe( *( SubscriptionMaker( SubscriberExample_R_int_A1_int::Notify ) ) );
+			click.Subscribe( *( SubscriptionMaker( rsubscription5, &SubscriberExample_R_int_A1_int_Const::NotifyMe ) ) );
+			
 			{
 				typedef int (*TFun)( int );
 				TFun tfun = &NotifyMe;
@@ -604,11 +607,14 @@ namespace test
 			// or 'static void ( :: *fun ) ( int )'
 			// or 'void ( * fun ) (int )'
 			SubscriberExample_R_void_A1_int subscription1(57), subscription2(77), subscription3(58);
+			SubscriberExample_R_void_A1_int subscription4(78);
+			const SubscriberExample_R_void_A1_int & rsubscription4( subscription4 );
 			I_SubscriberExample_R_void_A1_int &isubscription2( subscription2 );
 			ClickExample_R_void_A1_int click(98);			
 			click.Subscribe( *(  SubscriptionMaker( subscription1, &SubscriberExample_R_void_A1_int::NotifyMe   )  ) );
 			click.Subscribe( *(  SubscriptionMaker(  isubscription2, &I_SubscriberExample_R_void_A1_int::NotifyMe  ) ) );
 			click.Subscribe( *(  SubscriptionMaker( subscription3, &SubscriberExample_R_void_A1_int::NotifyMeC   )  ) );					
+			click.Subscribe( *(  SubscriptionMaker( rsubscription4, &SubscriberExample_R_void_A1_int::NotifyMeC   )  ) );					
 			click.Subscribe( *(  SubscriptionMaker( SubscriberExample_R_void_A1_int::Notify ) ) );
 			{
 				typedef void (*TFun)( int );
@@ -630,11 +636,14 @@ namespace test
 			///or 'static void ( :: *fun ) ( ExampleClass &c ) const ' 
 			// or 'void ( * fun ) (ExampleClass &c )'
 			SubscriberExample_R_void_A1_Class subscription1(59), subscription2(79), subscription3(89);
+			SubscriberExample_R_void_A1_Class subscription4(68);
+			const SubscriberExample_R_void_A1_Class &rsubscription4( subscription4 );
 			I_SubscriberExample_R_void_A1_Class &isubscription2(subscription2);
 			ClickExample_R_void_A1_Class click(98);
 			click.Subscribe( * ( SubscriptionMaker( subscription1, &SubscriberExample_R_void_A1_Class::NotifyMe ) ) );
 			click.Subscribe( * ( SubscriptionMaker( isubscription2, &I_SubscriberExample_R_void_A1_Class::NotifyMe ) ) );
 			click.Subscribe( * ( SubscriptionMaker( subscription3, &SubscriberExample_R_void_A1_Class::NotifyMeC ) ) );
+			click.Subscribe( * ( SubscriptionMaker( subscription4, &SubscriberExample_R_void_A1_Class::NotifyMeC ) ) );			
 			click.Subscribe( *(  SubscriptionMaker( SubscriberExample_R_void_A1_Class::Notify ) ) );
 			{				
 				typedef void (*TFun)( ExampleCompleClassWithId &o );
@@ -654,10 +663,13 @@ namespace test
 			// or 'void ( * fun ) ( const ExampleClass &c )'
 			SubscriberExample_R_void_A1_Const_Class subscription1(60), subscription2(80), subscription3(36);
 			I_SubscriberExample_R_void_A1_Const_Class &isubscription2(subscription2);
+			SubscriberExample_R_void_A1_Const_Class subscription4(54);
+			const SubscriberExample_R_void_A1_Const_Class &rsubscription4( subscription4 );
 			ClickExample_R_void_A1_Const_Class click(98);
 			click.Subscribe( * ( SubscriptionMaker( subscription1, &SubscriberExample_R_void_A1_Const_Class::NotifyMe ) ) );
 			click.Subscribe( * ( SubscriptionMaker( isubscription2, &I_SubscriberExample_R_void_A1_Const_Class::NotifyMe ) ) );
 			click.Subscribe( * ( SubscriptionMaker( subscription3, &SubscriberExample_R_void_A1_Const_Class::NotifyMeC ) ) );	
+			click.Subscribe( * ( SubscriptionMaker( rsubscription4, &SubscriberExample_R_void_A1_Const_Class::NotifyMeC ) ) );				
 			click.Subscribe( *(  SubscriptionMaker( SubscriberExample_R_void_A1_Const_Class::Notify ) ) );
 			{				
 				typedef void (*TFun)( const ExampleCompleClassWithId &o );
@@ -676,10 +688,13 @@ namespace test
 			// or 'int ( * fun ) (  )'
 			SubscriberExample_R_int subscription1(58), subscription2(78), subscription3(90);
 			I_SubscriberExample_R_int &isubscription2( subscription2 );
+			SubscriberExample_R_int subscription4(68);
+			const SubscriberExample_R_int &rsubscription4( subscription4 );
 			ClickExample_R_int click(98);
 			click.Subscribe( * ( SubscriptionMaker( subscription1, &SubscriberExample_R_int::NotifyMe  )  ) );
 			click.Subscribe( * ( SubscriptionMaker( isubscription2, &I_SubscriberExample_R_int::NotifyMe )  ) );
 			click.Subscribe( * ( SubscriptionMaker( subscription3, &SubscriberExample_R_int::NotifyMeC )  ) );	
+			click.Subscribe( * ( SubscriptionMaker( rsubscription4, &SubscriberExample_R_int::NotifyMeC )  ) );	
 			click.Subscribe( *(  SubscriptionMaker( SubscriberExample_R_int::Notify ) ) );
 			{				
 				typedef int (*TFun)( );
