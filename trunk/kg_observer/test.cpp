@@ -39,6 +39,12 @@ namespace test
 			std::cout << "example member fun 'int Class::NotifyMe( int )const, class insance's id = " << m_id << "  observed id: "  << observedId << std::endl; 	
 			return 0;
 		}
+		//core subscription static member function of type 'int (:: *fun ) (int )'
+		static int Notify( int observedId )
+		{
+			std::cout << "example static fun 'int Class::NotifyMe( int ) " << " observed id: "  << observedId << std::endl; 	
+			return 0;
+		}
 		const int m_id;
 	};
 
@@ -68,6 +74,12 @@ namespace test
 		int NotifyMe( int observedId ) const
 		{
 			std::cout << "example member fun 'int Class::NotifyMe( int ) const', class insance's id = " << m_id << "  observed id: "  << observedId << std::endl; 	
+			return 0;
+		}
+		//core subscription static member function of type 'int (::*fun ) (int )'
+		static int Notify( int observedId )
+		{
+			std::cout << "example static member fun 'int Class::NotifyMe( int ) const', " << "  observed id: "  << observedId << std::endl; 	
 			return 0;
 		}
 		const int m_id;
@@ -108,6 +120,12 @@ namespace test
 			std::cout << "example member fun 'int Class::NotifyMe(  )C', class insance's id = " << m_id << " no provision to get observed's id "   << std::endl; 
 			return 0;
 		}
+		//core subscription static member function of type 'R (:: *fun ) ( )'
+		static int Notify( )
+		{			
+			std::cout << "example static member fun 'int Class::Notify(  )C'," << " no provision to get observed's id "   << std::endl; 
+			return 0;
+		}
 		const int m_id;
 	};
 
@@ -143,6 +161,12 @@ namespace test
 		void NotifyMeC( int observedId ) const
 		{		
 			std::cout << "example member fun 'void Class::NotifyMeC( int  ) const', class insance's id = " << m_id << " observed id = " << observedId << std::endl; 
+			return;
+		}
+		//another core static subscription member function of type 'void (:: *fun ) ( int )'		
+		static void Notify( int observedId )
+		{		
+			std::cout << "example static member fun 'void Class::NotifyMeC( int  ) const' " <<  " observed id = " << observedId << std::endl; 
 			return;
 		}
 		const int m_id;
@@ -198,6 +222,15 @@ namespace test
 			std::cout << "example member fun 'void Class::NotifyMe( ExampleClass &  )const', class insance's id = " << m_id << " observed id = " << observedId <<  std::endl; 
 			return;
 		}
+	
+		//core  static  subscription member function of type 'void (:: *fun ) ( ExampleClass & )'	
+        //This is absent in the base class	
+		static void Notify( ExampleCompleClassWithId &object  )
+		{
+			int observedId = object.GetId();
+			std::cout << "example static member fun 'void Class::NotifyMe( ExampleClass &  )const'," <<  " observed id = " << observedId <<  std::endl; 
+			return;
+		}
 		const int m_id;
 	};
 
@@ -237,76 +270,17 @@ namespace test
 			std::cout << "example member fun 'void Class::NotifyMeC( cons ExampleClass &  )const', class insance's id = " << m_id << " observed id = " << observedId <<   std::endl; 
 			return;
 		}
-		const int m_id;
-	};
-
-
-	//======================================================================================/
-	//======================================================================================/
-	// Make a class which has a member function of type 'void (:: * fun ) (  ExampleClass & ) const'
-	// which can be used to act as a subscription
-	//
-	//This gives an  interface class
-	//with a subscription fnction which has the signature 'void (:: *fun)( ExampleClass & )const '
-
-	class I_Const_SubscriberExample_R_void_A1_Class
-	{
-	public:
-		I_Const_SubscriberExample_R_void_A1_Class(){}
-		virtual ~I_Const_SubscriberExample_R_void_A1_Class(){}
-		//core subscription member function of type 'void (:: *fun ) ( class & ) const '
-		virtual void NotifyMe( ExampleCompleClassWithId &object  )const=0;
-	};
-
-	
-    //This gives a concrete class for the above interface
-	class Const_SubscriberExample_R_void_A1_Class : public I_Const_SubscriberExample_R_void_A1_Class
-	{
-	public:
-		Const_SubscriberExample_R_void_A1_Class(int id):m_id(id){}				
-		//core subscription member function of type 'void (:: *fun ) ( class & ) const '
-		void NotifyMe( ExampleCompleClassWithId &object  ) const
-		{			
+		
+		//core static subscription member function of type 'void (:: *fun ) ( const ExampleClass & )'
+		static void Notify( const ExampleCompleClassWithId &object  )
+		{
 			int observedId = object.GetId();
-			std::cout << "example member fun 'void Class::NotifyMe( ExampleClass &  ) const', class insance's id = " << m_id << " observed id = " << observedId <<  std::endl; 
+			std::cout << "example static member fun 'void Class::NotifyMeC( cons ExampleClass &  )const', " <<  " observed id = " << observedId <<   std::endl; 
 			return;
 		}
 		const int m_id;
 	};
 
-	
-
-	//======================================================================================/
-	//======================================================================================/
-	// Make a class which has a member function of type 'int (:: * fun ) (  int ) const'
-	// which can be used to act as a subscription
-	//
-	//This gives an  interface class
-	//with a subscription fnction which has the signature 'int (:: *fun)( int )const '
-
-	class I_Const_SubscriberExample_R_int_A1_int
-	{
-	public:
-		I_Const_SubscriberExample_R_int_A1_int(){}
-		virtual ~I_Const_SubscriberExample_R_int_A1_int(){}
-		//core subscription member function of type 'int (:: *fun ) ( class & ) const '
-		virtual int NotifyMe(int observedId  )const=0;
-	};
-
-	
-    //This gives a concrete class for the above interface
-	class Const_SubscriberExample_R_int_A1_int : public I_Const_SubscriberExample_R_int_A1_int
-	{
-	public:
-		Const_SubscriberExample_R_int_A1_int(int id):m_id(id){}				
-		//core subscription member function of type 'int (:: *fun ) ( class & ) const '
-		int NotifyMe( int observedId ) const
-		{			
-			std::cout << "example member fun 'int Class::NotifyMe( int  ) const', class insance's id = " << m_id << " observed id = " << observedId <<  std::endl; 
-			return 0;
-		}
-		const int m_id;
-	};
 
 	//======================================================================================/
 	//======================================================================================/
@@ -569,7 +543,8 @@ namespace test
     // An  example of an  'Observed' class
 	// expecting a connection from subscriptions of type
 	// 'int ( :: *fun ) ( int )' 
-	// 'int ( :: *fun ) ( int ) class' 
+	// 'int ( :: *fun ) ( int ) const'
+	// 'static int ( :: *fun ) ( int )' 
 	// or 'int ( * fun ) (  int )'
 	//where the constant version of the fire version is launched
 	class ClickExample_Const_R_int_A1_int : public Observed< int, int>
@@ -598,6 +573,7 @@ namespace test
 			//Observed class and subscribers whose subscriptions are of type
 			// 'int ( :: *fun ) ( int )' 
 			///or 'int ( :: *fun ) ( int ) const ' 
+			// 'static int ( :: *fun ) ( int )' 
 			// or 'int ( * fun ) (int )'
 			ClickExample_R_int_A1_int click(98); //observed class
 			//different kinds of subscribers
@@ -609,6 +585,8 @@ namespace test
 			click.Subscribe( *( SubscriptionMaker( isubscription2,&I_SubscriberExample_R_int_A1_int::NotifyMe ) ) );
 			click.Subscribe( *( SubscriptionMaker( subscription3,&SubscriberExample_R_int_A1_int_Const::NotifyMe ) ) );
 			click.Subscribe( *( SubscriptionMaker( isubscription4,&I_SubscriberExample_R_int_A1_int_Const::NotifyMe ) ) );		
+			//example of member static function
+			click.Subscribe( *( SubscriptionMaker( SubscriberExample_R_int_A1_int::Notify ) ) );
 			{
 				typedef int (*TFun)( int );
 				TFun tfun = &NotifyMe;
@@ -623,13 +601,15 @@ namespace test
 			//Observed class and subscribers whose subscriptions are of type
 			// 'void ( :: *fun ) ( int )' 
 			///or 'void ( :: *fun ) ( int ) const ' 
+			// or 'static void ( :: *fun ) ( int )'
 			// or 'void ( * fun ) (int )'
 			SubscriberExample_R_void_A1_int subscription1(57), subscription2(77), subscription3(58);
 			I_SubscriberExample_R_void_A1_int &isubscription2( subscription2 );
 			ClickExample_R_void_A1_int click(98);			
 			click.Subscribe( *(  SubscriptionMaker( subscription1, &SubscriberExample_R_void_A1_int::NotifyMe   )  ) );
 			click.Subscribe( *(  SubscriptionMaker(  isubscription2, &I_SubscriberExample_R_void_A1_int::NotifyMe  ) ) );
-			click.Subscribe( *(  SubscriptionMaker( subscription3, &SubscriberExample_R_void_A1_int::NotifyMeC   )  ) );		
+			click.Subscribe( *(  SubscriptionMaker( subscription3, &SubscriberExample_R_void_A1_int::NotifyMeC   )  ) );					
+			click.Subscribe( *(  SubscriptionMaker( SubscriberExample_R_void_A1_int::Notify ) ) );
 			{
 				typedef void (*TFun)( int );
 				TFun tfun = &NotifyMeV;
@@ -647,6 +627,7 @@ namespace test
 			//Observed class and subscribers whose subscriptions are of type
 			// 'void ( :: *fun ) ( ExampleClass &c )' 
 			///or 'void ( :: *fun ) ( ExampleClass &c ) const ' 
+			///or 'static void ( :: *fun ) ( ExampleClass &c ) const ' 
 			// or 'void ( * fun ) (ExampleClass &c )'
 			SubscriberExample_R_void_A1_Class subscription1(59), subscription2(79), subscription3(89);
 			I_SubscriberExample_R_void_A1_Class &isubscription2(subscription2);
@@ -654,11 +635,13 @@ namespace test
 			click.Subscribe( * ( SubscriptionMaker( subscription1, &SubscriberExample_R_void_A1_Class::NotifyMe ) ) );
 			click.Subscribe( * ( SubscriptionMaker( isubscription2, &I_SubscriberExample_R_void_A1_Class::NotifyMe ) ) );
 			click.Subscribe( * ( SubscriptionMaker( subscription3, &SubscriberExample_R_void_A1_Class::NotifyMeC ) ) );
+			click.Subscribe( *(  SubscriptionMaker( SubscriberExample_R_void_A1_Class::Notify ) ) );
 			{				
 				typedef void (*TFun)( ExampleCompleClassWithId &o );
 				TFun tfun = &NotifyMeV;
 				click.Subscribe( *(  SubscriptionMaker( tfun ) ) );
 			}
+
 			click.ClickMe();
 			click.ClickMe();
 		}
@@ -666,7 +649,8 @@ namespace test
 		{
 			//Observed class and subscribers whose subscriptions are of type
 			// 'void ( :: *fun ) ( const ExampleClass &c )' 
-			///or 'void ( :: *fun ) ( const ExampleClass &c ) const ' 
+			///or 'void ( :: *fun ) ( const ExampleClass &c ) const '
+			///or 'static void ( :: *fun ) ( const ExampleClass &c ) const ' 
 			// or 'void ( * fun ) ( const ExampleClass &c )'
 			SubscriberExample_R_void_A1_Const_Class subscription1(60), subscription2(80), subscription3(36);
 			I_SubscriberExample_R_void_A1_Const_Class &isubscription2(subscription2);
@@ -674,6 +658,7 @@ namespace test
 			click.Subscribe( * ( SubscriptionMaker( subscription1, &SubscriberExample_R_void_A1_Const_Class::NotifyMe ) ) );
 			click.Subscribe( * ( SubscriptionMaker( isubscription2, &I_SubscriberExample_R_void_A1_Const_Class::NotifyMe ) ) );
 			click.Subscribe( * ( SubscriptionMaker( subscription3, &SubscriberExample_R_void_A1_Const_Class::NotifyMeC ) ) );	
+			click.Subscribe( *(  SubscriptionMaker( SubscriberExample_R_void_A1_Const_Class::Notify ) ) );
 			{				
 				typedef void (*TFun)( const ExampleCompleClassWithId &o );
 				TFun tfun = &NotifyMeV;
@@ -687,13 +672,15 @@ namespace test
 			//Observed class and subscribers whose subscriptions are of type
 			// 'int ( :: *fun ) (  )' 
 			///or 'int ( :: *fun ) (  ) const ' 
+			// or 'static int ( :: *fun ) (  )' 
 			// or 'int ( * fun ) (  )'
 			SubscriberExample_R_int subscription1(58), subscription2(78), subscription3(90);
 			I_SubscriberExample_R_int &isubscription2( subscription2 );
 			ClickExample_R_int click(98);
 			click.Subscribe( * ( SubscriptionMaker( subscription1, &SubscriberExample_R_int::NotifyMe  )  ) );
 			click.Subscribe( * ( SubscriptionMaker( isubscription2, &I_SubscriberExample_R_int::NotifyMe )  ) );
-			click.Subscribe( * ( SubscriptionMaker( subscription3, &SubscriberExample_R_int::NotifyMeC )  ) );		
+			click.Subscribe( * ( SubscriptionMaker( subscription3, &SubscriberExample_R_int::NotifyMeC )  ) );	
+			click.Subscribe( *(  SubscriptionMaker( SubscriberExample_R_int::Notify ) ) );
 			{				
 				typedef int (*TFun)( );
 				TFun tfun = &NotifyMe;
@@ -705,6 +692,7 @@ namespace test
 			//Observed class and subscribers whose subscriptions are of type
 			// 'int ( :: *fun ) ( int )' 
 			///or 'int ( :: *fun ) ( int ) const ' 
+			// 'static int ( :: *fun ) ( int )' 
 			// or 'int ( * fun ) ( int )'
 			//But the 'Fire' function of the observed class
 			//is a constant function
@@ -715,6 +703,7 @@ namespace test
 			click.Subscribe( * ( SubscriptionMaker( subscription1, &SubscriberExample_R_int_A1_int::NotifyMe ) ) );
 			click.Subscribe( * ( SubscriptionMaker( isubscription2, &I_SubscriberExample_R_int_A1_int::NotifyMe ) ) );
 			click.Subscribe( * ( SubscriptionMaker( subscription3, &SubscriberExample_R_int_A1_int::NotifyMeC ) ) );	
+			click.Subscribe( *(  SubscriptionMaker(  SubscriberExample_R_int_A1_int::Notify ) ) );
 			{				
 				typedef int (*TFun)(int );
 				TFun tfun = &NotifyMe;
